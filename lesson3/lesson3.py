@@ -35,4 +35,10 @@ cv2.waitKey(0)
 bila = cv2.bilateralFilter(image1, 8, 78, 68)
 cv2.imshow("filter", bila)
 cv2.waitKey(0)
+
+
+#GaussianBlur
+gaus = cv2.GaussianBlur(ima, (7, 7), 0)
+cv2.imshow("GaussianBlur", gaus)
+cv2.waitKey(0)
 cv2.destroyAllWindows()
