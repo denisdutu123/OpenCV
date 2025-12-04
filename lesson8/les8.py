@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 print("Welcome to the filter app")
-print(" 0 - original\n 1 - Grayscale\n 2 - Sepia\n 3 - Negative\n 4 - cartoon\n 5 - mirror\n q- quit")
+print(" 0 - original\n 1 - Grayscale\n 2 - Sepia\n 3 - Negative\n 4 - cartoon\n 5 - mirror\n q- quit\n 6 - blue filter")
 cam = cv2.VideoCapture(0)
 filtyp = "original"
 while True:
@@ -25,6 +25,10 @@ while True:
         fram = cv2.bitwise_and(colo, colo, mask = edg)
     elif  filtyp == "mirror":
         fram = cv2.flip(fram, 1)
+    elif filtyp == "blue filter":
+        blu = np.array(([[0.0, 1.5, 0.0],[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]))
+        blufram = cv2.transform(fram, blu)
+        fram = np.clip(blufram, 0, 255).astype(np.uint8)
 
     #showing video output
     cv2.imshow("output of image", fram)
@@ -42,6 +46,8 @@ while True:
         filtyp = "cartoon"
     elif key == ord("5"):
         filtyp = "mirror"
+    elif key == ord("6"):
+        filtyp = "blue filter"
     elif key == ord("q"):
         break
 cam.release()
