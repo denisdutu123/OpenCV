@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 fil = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
-load = cv2.imread("galsses.png")
+load = cv2.imread("galsses.png", cv2.IMREAD_UNCHANGED)
 hei, wid = load.shape[:2]
 ratio = wid/hei
 #function for putting glasses on face
@@ -32,11 +32,12 @@ while True:
     #detecting faces
     fac = fil.detectMultiScale(grey, scaleFactor = 1.1, minNeighbors = 5, minSize = (80, 80))
     for (x, y, widt, heig) in fac:
-        glasses_widt = widt
+        glasses_widt = int(widt*0.95)
         glasses_heig = int(glasses_widt / ratio)
         resize = cv2.resize(load, (glasses_widt, glasses_heig))
-        eylev = y + int(heig * 0.35)
-        fra= glass(fra, resize, x, eylev)
+        xx = x+(widt-glasses_widt)//2
+        eylev = y + int(heig * 0.42)
+        fra= glass(fra, resize, xx, eylev)
     cv2.imshow("glasses filter", fra)
     if cv2.waitKey(1) == ord("q"):
         break
