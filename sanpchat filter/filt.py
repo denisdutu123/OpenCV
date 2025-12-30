@@ -36,7 +36,7 @@ while True:
         glasses_heig = int(glasses_widt / ratio)
         resize = cv2.resize(load, (glasses_widt, glasses_heig))
         xx = x+(widt-glasses_widt)//2
-        eylev = y + int(heig * 0.42)
+        eylev = y + int(heig * 0.2)
         fra= glass(fra, resize, xx, eylev)
     cv2.imshow("glasses filter", fra)
     if cv2.waitKey(1) == ord("q"):
