@@ -27,15 +27,15 @@ capt = cv2.VideoCapture(0)
 while True:
     (_,im) = capt.read()
     grey = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
-    faces = fold.detectMultiScale(grey, 1.3, 4)
+    faces = casc.detectMultiScale(grey, 1.3, 4)
     #looping through detcted faces
-    for (x, y, wid, hei) in faces:
-        cv2.rectangle(im, (x, y), (x+wid, y+hei), (213, 14, 134), 6)
-        singular = grey[y:y+hei, x:x+wid]
-        resized = cv2.resize(singular, (wid, hei))
+    for (x, y, wi, he) in faces:
+        cv2.rectangle(im, (x, y), (x+wi, y+he), (213, 14, 134), 6)
+        singular = grey[y:y+hei, x:x+wi]
+        resized = cv2.resize(singular, (wi, he))
         #trying to recgonise the face
         predi = mod.predict(resized)
-        cv2.rectangle(im, (x, y), (x+wid, y+hei), (213, 14, 134), 6)
+        cv2.rectangle(im, (x, y), (x+wi, y+he), (213, 14, 134), 6)
         if predi[1] < 500:
             cv2.putText(im, '% s - %.0f' %(nam[predi[0]], predi[1]),(x - 10, y - 10), cv2.FONT_HERSHEY_DUPLEX, 1, (123, 233, 9), 7)
         else:
